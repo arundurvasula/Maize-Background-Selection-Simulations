@@ -8,9 +8,7 @@ To run this full pipeline you need the following:
 If those executables are not already in your path, you must add them:
 1) create a file called ".bash_profile" in your home directory (if it doesn't exist)
 2) add this, substituting the paths to your exectuable:
-PATH=$PATH:/home/user/sfs_code/bin/
-export PATH
-PATH=$PATH:/home/user/msstats-0.3.1/bin/
+PATH=$PATH:/home/user/sfs_code/bin/:home/user/msstats-0.3.1/bin/
 export PATH
 
 Directions to run:
