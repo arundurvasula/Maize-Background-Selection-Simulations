@@ -1,0 +1,8 @@
+1) qsub maize_bs.sh
+2) source cleanup.sh
+3) python clean_stats.py
+3b) Manually (gasp!) remove semifinal_stats.txt
+4) Statistics are in order in final_stats.txt. Paramters are in order in parameters.txt.
+
+*Change parameters in generate_params.r
+*You can test out those parameters with 'Rscript genereate_params.r 1'. The output will be on the terminal with paramters saved as paramsFile.1
