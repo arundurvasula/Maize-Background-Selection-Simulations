@@ -1,5 +1,14 @@
 #x <- 'sfs_code 4 1 -Tg 0 P 0 2 -TD 2.5 0 1 0.01 300 -TD 2.5 0 2 0.05 250 -TD 2.5 0 3 0.02 400 -Tg 2.5 P 1 10 -Tg 2.5 P 2 15 -Tg 2.5 P 3 17 -TE 2.6'
 
+### Thoughts on initial sims to estimate bottleneck from noncoding regions:
+## ./sfs_code 1 1 -n 17 --popSize 500 -r 0.01 -t 0.01 -Td 0 0.8 -Tg 0 60 -TE 0.067 --length 1 10000 --annotate N
+ 
+### Then add in selection:
+## ./sfs_code 1 1 -n 17 --popSize 500 -r 0.01(draw) -t 0.01(draw) -Td 0 0.8(draw, model) -Tg 0 60(try several values) -TE 0.067 --length 1 10000 --annotate C --selDistType 2 0 1 X(rate param so mean is 1/X) 1 X(same X)
+
+### The below will have to be modified (ignore my comments below)
+
+
 # Run with "Rscript generate_params.r $SGE_TASK_ID" 
 
 SGE_TASK_ID <- commandArgs(trailingOnly=TRUE)
