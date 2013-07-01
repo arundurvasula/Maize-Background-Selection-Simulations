@@ -17,10 +17,10 @@ paramsFile <- file(paste("paramsFile.", SGE_TASK_ID, sep=""))
 # Convention: 
 # type_flag_population_paramter
 
-n_NPOP <- 3
-n_ITER <- 1
-n_theta <- 0.001
-n_pop_0 <- 0
+n_NPOP <- 2 #two pops, maize and teosinte
+n_ITER <- 1 #1 iteration per job? if fast enough, can do more but each needs own set of params
+n_theta <- 0.01 #4*Ne*mu. will want to draw this from distribution based on data from Hufford et al. 2012
+n_pop_0 <- 0 
 n_pop_1 <- 1
 n_pop_2 <- 2
 n_pop_3 <- 3
@@ -36,14 +36,19 @@ n_TD_1_time <- 2.5
 n_TD_1_allele_freq <- runif(1, 0.01, 0.05)
 n_TD_1_size <- 200
 
+## sample sizes (one needed for each pop)
+n_ss_1 <- 7 # to match 14 teosinte alleles in data
+n_ss_2 <- 17 # to match 35 maize alleles in data
+
 s_dom_event <- "-TD"
 s_end_time <- "-TE"
 s_spec_event <- "-TS"
 s_exp_grow <- "-Tg"
 s_theta <- "-t"
-s_pop <- "P"
+s_pop <- "P" # pop number flag for growth etc.
+s_sample_size <- "-n"
 
-x <- paste("sfs_code", n_NPOP, n_ITER, s_theta, n_theta, s_exp_grow, n_pop_0, s_pop, n_pop_0, n_Tg_0_alpha, s_dom_event, n_TD_0_time, n_pop_0, n_pop_1, n_TD_0_allele_freq, n_TD_0_size, s_dom_event, n_TD_1_time, n_pop_1, n_pop_2, n_TD_1_allele_freq, n_TD_1_size)
+x <- paste("sfs_code", n_NPOP, n_ITER, s_sample_size, n_ss_1, n_ss_2, s_theta, n_theta, s_exp_grow, n_pop_0, s_pop, n_pop_0, n_Tg_0_alpha, s_dom_event, n_TD_0_time, n_pop_0, n_pop_1, n_TD_0_allele_freq, n_TD_0_size, s_dom_event, n_TD_1_time, n_pop_1, n_pop_2, n_TD_1_allele_freq, n_TD_1_size)
 
 cat(x, "\n", file=paramsFile)
 
