@@ -4,7 +4,7 @@
 ## ./sfs_code 1 1 -n 17 --popSize 500 -r 0.01 -t 0.01 -Td 0 0.8 -Tg 0 60 -TE 0.067 --length 1 10000 --annotate N
  
 ### Then add in selection:
-## ./sfs_code 1 1 -n 17 --popSize 500 -r 0.01(draw) -t 0.01(draw) -Td 0 0.8(draw, model) -Tg 0 60(try several values) -TE 0.067 --length 1 10000 --annotate C --selDistType 2 0 1 X(rate param so mean is 1/X) 1 X(same X)
+## ./sfs_code 1 1 -n 17 --popSize 500 -r 0.01(=theta) -t 0.01(draw) -Td 0 0.8(draw, model) -Tg 0 60(try several values) -TE 0.067 --length 1 10000 --annotate C --selDistType 2 0 blah blah 1 X(from some distr.)
 
 ### The below will have to be modified (ignore my comments below)
 

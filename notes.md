@@ -7,11 +7,12 @@ install and use https://github.com/rossibarra/msstatsFST instead of standard mss
 
 ### Params we will draw from distribution but not do ABC:
 
-- theta ( -t 0.01 )
+- theta ( -t X )
 
 ### Params we will do ABC on
 
 - bottleneck size ( -Td 0 P 1 X )
+- mean of exponential for selection --selDistType 2 0 blah blah 1 X    (start with runif(1,0,1) )
 
 ### Params we should try a few different values but no ABC nor distributions
 
