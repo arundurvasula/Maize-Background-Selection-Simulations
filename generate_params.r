@@ -38,7 +38,7 @@ n_Tg_0_time_const <- 0.03333333
 n_Tg_0_alpha <- log(n_final/n_initial)/(n_Tg_0_time_const) 
 
 n_Td_0_time <- 0
-n_Td_0_pop_ratio <- 0.8
+n_Td_0_pop_ratio <- runif(1, 0, 1)
 
 ## sample sizes (one needed for each pop)
 n_ss_0 <- 17 # to match 35 maize alleles in data
