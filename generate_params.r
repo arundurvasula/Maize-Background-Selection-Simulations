@@ -11,7 +11,7 @@
 SGE_TASK_ID <- commandArgs(trailingOnly=TRUE)
 
 paramsFile <- file(paste("paramsFile.", SGE_TASK_ID, sep=""))
-piFile <- file("pi_dist.txt")
+pi_dist <- read.table("pi_dist.txt")
 
 # Variable naming convention:
 # numbers start with "n_"
@@ -23,16 +23,19 @@ piFile <- file("pi_dist.txt")
 
 n_NPOP <- 1
 n_ITER <- 1 #1 iteration per job? if fast enough, can do more but each needs own set of params
-n_theta <- 0.01 #4*Ne*mu. will want to draw this from distribution based on data from Hufford et al. 2012
+n_theta <- sample(pi_dist[[1]], 1) # draw from given pi dist. also, R is silly with its data frames
 n_rho <- n_theta #same as theta for initial simulation
 n_pop_0 <- 0 
 n_pop_size <- 500
+n_final <- 10^7
+n_initial <- 150000
 n_end_time <- 0.067
 n_num_loci <- 1
 n_length_loci <- 10000
 
 n_Tg_0_time <- 0
-n_Tg_0_alpha <- 2 #solve for this
+n_Tg_0_time_const <- 0.03333333
+n_Tg_0_alpha <- log(n_final/n_initial)/(n_Tg_0_time_const) 
 
 n_Td_0_time <- 0
 n_Td_0_pop_ratio <- 0.8
