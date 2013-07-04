@@ -14,9 +14,14 @@ export PATH
 Directions to run:
 1) qsub maize_bs.sh
 2) source cleanup.sh
-3) python clean_stats.py
-3b) Manually (gasp!) remove semifinal_stats.txt (there's no script to do that)
-4) Statistics are in order in final_stats.txt. Paramters are in order in parameters.txt.
+3) Statistics are in order in final_stats.txt. Paramters are in order in parameters.txt.
 
 *Change parameters in generate_params.r
 *You can test out those parameters with 'Rscript genereate_params.r 1'. The output will be on the terminal with paramters saved as paramsFile.1
+
+====
+Tricks for analysis
+
+1) make sure you're using the right data. If you're simulating with "--annotate N" then use stats from noncoding windows.
+2) make sure your stats are actually comparable: msstats gives theta pi per locus. Your data might have theta pi per base pair. 
+3) if your graph is crappy, try reducing the number of values in your posterior. 
