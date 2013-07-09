@@ -1,9 +1,10 @@
 Purpose:
+To use approximate bayesian computation with a rejection algorithm that allows us to recreate statistics observed in Hufford et. al. 2012.
 
 Dependencies/Assumptions:
 To run this full pipeline you need the following:
 -The Sun Grid Engine
--Working executables of: sfs_code, convertSFS_CODE, msstats, R, Python
+-Working executables of: sfs_code, convertSFS_CODE, msstats, ABCreg, R, Python
 
 If those executables are not already in your path, you must add them:
 1) create a file called ".bash_profile" in your home directory (if it doesn't exist)
@@ -19,9 +20,27 @@ Directions to run:
 *Change parameters in generate_params.r
 *You can test out those parameters with 'Rscript genereate_params.r 1'. The output will be on the terminal with paramters saved as paramsFile.1
 
+Analysis with ABCreg:
+1) Generate data and prior files (will be automated in the future.)
+2) ../ABCreg/reg  -T -P 1 -S 2 -p prior_file.txt -d data_file.txt -b bneck -t 0.01
+3) Graph bneck.0.post in R
+
 ====
 Tricks for analysis
 
-1) make sure you're using the right data. If you're simulating with "--annotate N" then use stats from noncoding windows.
-2) make sure your stats are actually comparable: msstats gives theta pi per locus. Your data might have theta pi per base pair. 
-3) if your graph is crappy, try reducing the number of values in your posterior. 
+- the data file should only have one line (means of the observed stats) (no headers):
+0.0054 -0.434
+
+- prior file should be the parameters and the summary stats (no headers):
+[parameter]  	       [stats in same order as data file]
+0.835507987765595       65.7986 0.241462
+0.550444400170818       29.6863 -0.276919
+0.212850250769407       42.6132 0.212022
+0.781859162030742       106.241 -0.0995736
+0.446078652050346       43.1693 -0.559728
+0.620897640939802       133.275 0.230516
+ 
+- make sure you're using the right data. If you're simulating with "--annotate N" then use stats from noncoding windows.
+- make sure your stats are actually comparable: msstats gives theta pi per locus. Your data might have theta pi per base pair. 
+- if your graph is crappy, try reducing the number of values in your posterior. 
+
