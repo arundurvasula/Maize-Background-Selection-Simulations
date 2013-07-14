@@ -6,14 +6,15 @@
 
 ### The below will have to be modified (ignore my comments below)
 
-# Run with "Rscript generate_params.r $JOB_ID $SGE_TASK_ID" 
+# Run with "Rscript generate_params.r $JOB_ID $SGE_TASK_ID $i" 
 
 args <- commandArgs(trailingOnly=TRUE)
 JOB_ID <- strsplit(args, " ")[[1]]
 SGE_TASK_ID <- strsplit(args, " ")[[2]]
+i <- strsplit(args, " ")[[3]]
 
 
-paramsFile <- file(paste("paramsFile.", JOB_ID,".", SGE_TASK_ID, sep=""))
+paramsFile <- file(paste("paramsFile.", JOB_ID,".", SGE_TASK_ID, ".", i, sep=""))
 pi_dist <- read.table("pi_dist.txt")
 
 # Variable naming convention:
