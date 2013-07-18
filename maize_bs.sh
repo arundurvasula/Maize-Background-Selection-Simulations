@@ -3,7 +3,8 @@
 #$ -e /dev/null
 #$ -o /dev/null
 #$ -t 1-50000
-module load gcc libsequence &> /dev/null\
+module load gcc
+module load libsequence
 
 for i in {1..10}
 do
