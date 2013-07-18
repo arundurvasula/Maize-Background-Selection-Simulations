@@ -36,3 +36,17 @@ install and use https://github.com/rossibarra/msstatsFST instead of standard mss
 <img src="./popsize_tajd.png" width="250px" />
 <img src="./popsize_pi.png" width="250px" />
 <img src="./popsize_hprime.png" width="250px" />
+
+## ABCreg notes
+-automatically create data and prior files from simulated stats and data
+-integrate this into cleanup.sh
+-rethink the organization of the because that's silly
+
+## Boosting
+-incorporate boosting
+-doesn't seem like we can take Aeschbacher's scripts wholesale.
+-create R scripts using package "mboost" to integrate boosting
+-local L2 selection is best (Aeschbacher et al 2012)
+-pipline something like this:
+maize_bs.sh -> cleanup.sh -> ABCreg_setup.sh -> ./ABCreg -> boost.R -> stop, look at posterior -> if good talk to Jeff, if bad adjust parameter distribution to be from min(good_summary_stats_parameters) to max(good_summary_stats_parameters) and run maize_bs.sh again
+-this might be folly if there are values inside the new parameter dist for which the resulting posterior is bad. i.e. there are multiple parameter disributions that don't overlap. 

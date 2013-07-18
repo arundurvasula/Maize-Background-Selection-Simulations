@@ -42,3 +42,4 @@ Tricks for analysis
 - make sure your stats are actually comparable: msstats gives theta pi per locus. Your data might have theta pi per base pair. 
 - if your graph is crappy, try reducing the number of values in your posterior. 
 - use cut -f [column #] to get a column of a file.
+
