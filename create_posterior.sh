@@ -2,7 +2,7 @@
 # uses ABCreg
 
 # step 1: cut up parameters.txt to get the right parameters (in this case theta) 
-cut -d " " -f 11 parameters.txt > temp_parameters.txt
+cut -d " " -f 14 parameters.txt > temp_parameters.txt
 # step 2: cut up final_stats.txt to get the right stats (in this case Pi and TajD)
 cut -f 5,8 final_stats.txt > temp_sim_stats.txt
 tail -n +2 "temp_sim_stats.txt" > temp_sim_stats2.txt
@@ -12,6 +12,6 @@ grep -v "nan" < temp_prior_file.txt > prior_file.txt
 # step 4: obtain data file
 
 # step 5: use ABCreg
-reg -T -P 1 -S 2 -p prior_file.txt -d data_file.txt -b bneck -t 0.01
+reg -T -P 1 -S 2 -p prior_file.txt -d data_file.txt -b bneck -t 0.001
 # have a way to choose which stats to create data file from?
 rm temp_*
