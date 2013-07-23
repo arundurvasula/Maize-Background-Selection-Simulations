@@ -14,15 +14,12 @@ export PATH
 Directions to run:
 1) qsub maize_bs.sh
 2) source cleanup.sh
-3) Statistics are in order in final_stats.txt. Paramters are in order in parameters.txt.
+3) source create_posterior.sh
+4) Graph bneck.0.post in R
 
 *Change parameters in generate_params.r
 *You can test out those parameters with 'Rscript generate_params.r 1 2 3'. The output will be on the terminal with parameters saved as 'paramsFile.1.2.3'
 
-Approximate Bayesian Computation
-1) Set up prior and data files.
-2) ../ABCreg/reg  -T -P 1 -S 2 -p prior_file.txt -d data_file.txt -b bneck -t 0.01
-3) Graph bneck.0.post in R
 
 ====
 Tricks for analysis
