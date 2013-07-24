@@ -40,3 +40,25 @@ Tricks for analysis
 - if your graph is crappy, try reducing the number of values in your posterior. 
 - use cut -f [column #] to get a column of a file.
 
+- Guide to final_stats (for reference when changing create_posterior.sh):
+1 S
+2 n1
+3 next
+4 theta
+5 pi
+6 thetaH
+7 Hprime
+8 tajd
+9 fulif
+10 fulid
+11 fulifs
+12 fulids
+13 rm
+14 rmmg
+15 nhaps
+16 hdiv
+17 wallb
+18 wallq
+19 rosasrf
+20 rosasru
+21 zns
