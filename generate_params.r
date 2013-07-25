@@ -34,8 +34,9 @@ n_pop_size <- 500
 n_final <- 10^7
 n_initial <- 150000
 n_end_time <- 0.067
-n_num_loci <- 1
+n_num_loci <- 100
 n_length_loci <- 10000
+n_linkage <- -1 #unlinked
 
 n_Tg_0_time <- 0
 n_Tg_0_time_const <- 0.03333333
@@ -58,10 +59,12 @@ s_pop <- "P" # pop number flag for growth etc.
 s_sample_size <- "-n"
 s_pop_size <- "--popSize"
 s_loci <- "--length"
+s_linkage <- "--linkage"
+s_linkage_physical <- "p"
 s_annotate <- "--annotate"
 s_noncoding <- "N"
 
-x <- paste("sfs_code", n_NPOP, n_ITER, s_sample_size, n_ss_0,s_pop_size, n_pop_size, s_rho, n_rho,  s_theta, n_theta, s_rel_size_change, n_Td_0_time, n_Td_0_pop_ratio, s_exp_grow, n_pop_0, s_pop, n_pop_0, n_Tg_0_alpha, s_loci, n_num_loci, n_length_loci, s_annotate, s_noncoding)
+x <- paste("sfs_code", n_NPOP, n_ITER, s_sample_size, n_ss_0,s_pop_size, n_pop_size, s_rho, n_rho,  s_theta, n_theta, s_rel_size_change, n_Td_0_time, n_Td_0_pop_ratio, s_exp_grow, n_pop_0, s_pop, n_pop_0, n_Tg_0_alpha, s_loci, n_num_loci, n_length_loci, s_linkage, s_linkage_physical, n_linkage, s_annotate, s_noncoding)
 
 cat(x, "\n", file=paramsFile)
 
