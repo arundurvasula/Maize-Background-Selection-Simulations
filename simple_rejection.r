@@ -1,1 +1,0 @@
-# script to reject simulated samples based on euclidean distance to observed samples
