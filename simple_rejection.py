@@ -16,7 +16,7 @@ for line in sims_file:
     sims.append((float(temp[0]),float(temp[1]),float(temp[2])))
 
 for line in obs_file:
-    temp = line.split(" ")
+    temp = line.split("\t")
     temp[-1] = temp[-1].strip("\n")
     obs.append((float(temp[0]),float(temp[1])))
 
