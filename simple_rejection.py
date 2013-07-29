@@ -1,6 +1,5 @@
 import math
 # script to reject simulated samples based on euclidean distance to observed samples
-# TODO parse files
 
 
 CUTOFF = 1000 #final number of sims to keep
@@ -35,7 +34,7 @@ def euc_dist(x1, x2, y1, y2):
     return ans
 
 dist_list = []
-print obs
+
 for x in sims:
     # appends estimated parameter, euclidean distance to dist_list 
     dist_list.append((x[0], euc_dist(x[1], x[2], obs[0][0], obs[0][1])))
