@@ -31,7 +31,7 @@ n_theta <- sample(pi_dist[[1]], 1) # draw from given pi dist. also, R is silly w
 n_rho <- n_theta #same as theta for initial simulation
 n_pop_0 <- 0 
 n_pop_size <- 500
-n_final <- 10^7
+n_final <- 10^6
 n_initial <- 150000
 n_end_time <- 0.033
 n_num_loci <- 100
@@ -40,10 +40,12 @@ n_linkage <- -1 #unlinked
 
 n_Tg_0_time <- 0
 n_Tg_0_time_const <- 0.03333333
-n_Tg_0_alpha <- log(n_final/n_initial)/(n_Tg_0_time_const) 
 
 n_Td_0_time <- 0
 n_Td_0_pop_ratio <- runif(1, 0, 1)
+n_post_bneck <- n_Td_0_pop_ratio*n_initial
+n_Tg_0_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const) 
+
 
 ## sample sizes (one needed for each pop)
 n_ss_0 <- 17 # to match 35 maize alleles in data
@@ -64,7 +66,7 @@ s_linkage_physical <- "p"
 s_annotate <- "--annotate"
 s_noncoding <- "N"
 
-x <- paste("sfs_code", n_NPOP, n_ITER, s_sample_size, n_ss_0,s_pop_size, n_pop_size, s_rho, n_rho,  s_theta, n_theta, s_rel_size_change, n_Td_0_time, n_Td_0_pop_ratio, s_exp_grow, n_pop_0, s_pop, n_pop_0, n_Tg_0_alpha, s_loci, n_num_loci, n_length_loci, s_linkage, s_linkage_physical, n_linkage, s_annotate, s_noncoding)
+x <- paste("sfs_code", n_NPOP, n_ITER, s_sample_size, n_ss_0,s_pop_size, n_pop_size, s_rho, n_rho,  s_theta, n_theta, s_rel_size_change, n_Td_0_time, n_Td_0_pop_ratio, s_exp_grow, n_pop_0, s_pop, n_pop_0, n_Tg_0_alpha, s_loci, n_num_loci, n_length_loci, s_linkage, s_linkage_physical, n_linkage, s_annotate, s_noncoding, s_end_time, n_Tg_0_time_const)
 
 cat(x, "\n", file=paramsFile)
 
