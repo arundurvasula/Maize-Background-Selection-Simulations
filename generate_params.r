@@ -33,7 +33,7 @@ n_pop_0 <- 0
 n_pop_size <- 500
 n_final <- 10^7
 n_initial <- 150000
-n_end_time <- 0.067
+n_end_time <- 0.033
 n_num_loci <- 100
 n_length_loci <- 10000
 n_linkage <- -1 #unlinked
