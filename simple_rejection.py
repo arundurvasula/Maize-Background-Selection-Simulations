@@ -1,3 +1,4 @@
+# no longer up to date: only handles 2 summary stats
 import math
 # script to reject simulated samples based on euclidean distance to observed samples
 
