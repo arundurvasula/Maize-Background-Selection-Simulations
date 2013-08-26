@@ -16,7 +16,7 @@
 
 #paramsFile <- file(paste("paramsFile.", JOB_ID,".", SGE_TASK_ID, ".", i, sep=""))
 pi_dist <- read.table("../pi_dist.txt")
-SIMULATIONS <- 100000
+SIMULATIONS <- 100
 
 
 # Variable naming convention:
@@ -40,10 +40,10 @@ n_growth_rates_alpha <- 0.0025
 n_growth_rates_time <- 0
 n_subpop_size_time <- 0.0025
 n_subpop_size_x <- 0.15
-n_Td_0_pop_ratio <- runif(1, 0, SIMULATIONS)
+n_Td_0_pop_ratio <- runif(SIMULATIONS, 0, 1)
 n_post_bneck <- n_Td_0_pop_ratio[1]*n_initial # default value for alpha
 n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
-
+curr_bneck <- n_Td_0_pop_ratio[1]
 #n_pop_0 <- 0 
 #n_pop_size <- 500
 
@@ -87,8 +87,10 @@ for (i in 1:SIMULATIONS) {
     if (i %% 100 == 0) {
         n_post_bneck <- n_Td_0_pop_ratio[i]*n_initial
         n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
+        curr_bneck <- n_Td_0_pop_ratio[i]
     } 
+
     x <- paste("ms ", n_sam, n_reps, s_theta, n_theta[i], s_rho, n_rho[i], n_sites, s_alpha, n_alpha, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, paste("| msstats > stats.", i, sep="")) #dear computer gods, I'm sorry
-    cat(x, "\n", file=paste("./paramsFile.", i, sep=""))
+    cat(paste(x, curr_bneck), "\n", file=paste("./paramsFile.", i, sep=""))
     system(x)
 }
