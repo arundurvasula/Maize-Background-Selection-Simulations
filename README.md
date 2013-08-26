@@ -39,9 +39,9 @@ Directions to recreate simulations:
 This pipeline uses ms to simulate maize domestication backwards in time.
 Directions to recreate simulations:
 
-1. `source submit_million_coalescent.sh`
-2. `source cleanup.sh`
-3. `source create_posterior.sh`
+1. `Rscript generate_ms_parameters.r`
+2. `source ../cleanup.sh`
+3. `source ../create_posterior.sh`
 4. Graph bneck.0.post in R  
 
 - Change parameters in `generate_[simtype]_params.r`

@@ -6,7 +6,7 @@
 
 ### The below will have to be modified (ignore my comments below)
 
-# Run with "Rscript generate_params.r $JOB_ID $SGE_TASK_ID $i" 
+# Not meant for running on farm. Using "tbs" won't allow it. 
 
 #args <- commandArgs(trailingOnly=TRUE)
 #JOB_ID <- strsplit(args, " ")[[1]]
@@ -16,6 +16,8 @@
 
 #paramsFile <- file(paste("paramsFile.", JOB_ID,".", SGE_TASK_ID, ".", i, sep=""))
 pi_dist <- read.table("../pi_dist.txt")
+SIMULATIONS <- 100000
+
 
 # Variable naming convention:
 # numbers start with "n_"
@@ -28,19 +30,19 @@ pi_dist <- read.table("../pi_dist.txt")
 n_sam <- 17
 n_reps <- 1
 n_sites <- 10000
-n_theta <- sample(pi_dist[[1]], 1) * 10000
+n_theta <- sample(pi_dist[[1]], SIMULATIONS) * 10000
 n_rho <- n_theta #same as theta for initial simulation
 
 n_final <- 10^6
 n_initial <- 150000
-n_Td_0_pop_ratio <- runif(1, 0, 1)
 n_Tg_0_time_const <- 0.03333333
-n_post_bneck <- n_Td_0_pop_ratio*n_initial
-n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const) 
 n_growth_rates_alpha <- 0.0025
 n_growth_rates_time <- 0
 n_subpop_size_time <- 0.0025
 n_subpop_size_x <- 0.15
+n_Td_0_pop_ratio <- runif(1, 0, SIMULATIONS)
+n_post_bneck <- n_Td_0_pop_ratio[1]*n_initial # default value for alpha
+n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
 
 #n_pop_0 <- 0 
 #n_pop_size <- 500
@@ -51,7 +53,6 @@ n_subpop_size_x <- 0.15
 #n_linkage <- -1 #unlinked
 #n_ITER <- 1 #1 iteration per job? if fast enough, can do more but each needs own set of params
 #n_Tg_0_time <- 0
-
 #n_Td_0_time <- 0
 
 
@@ -79,8 +80,15 @@ s_rho <- "-r"
 #s_annotate <- "--annotate"
 #s_noncoding <- "N"
 
-x <- paste("ms -f", n_sam, n_reps, s_theta, n_theta, s_rho, n_rho, n_sites, s_alpha, n_alpha, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time)
 
-#cat(x, "\n", file=paramsFile)
-
-system(x)
+for (i in 1:SIMULATIONS) {
+    
+    # change alpha every 100 simulations
+    if (i %% 100 == 0) {
+        n_post_bneck <- n_Td_0_pop_ratio[i]*n_initial
+        n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
+    } 
+    x <- paste("ms ", n_sam, n_reps, s_theta, n_theta[i], s_rho, n_rho[i], n_sites, s_alpha, n_alpha, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, paste("| msstats > stats.", i, sep="")) #dear computer gods, I'm sorry
+    cat(x, "\n", file=paste("./paramsFile.", i, sep=""))
+    system(x)
+}
