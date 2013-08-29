@@ -74,7 +74,16 @@ Tricks for analysis
 - make sure your stats are actually comparable: msstats gives theta pi per locus. Your data might have theta pi per base pair. 
 - if your graph is crappy, try reducing the number of values in your posterior. 
 - use `cut -f [column #]` to get a column of a file.
-
+- stats currently being compared:
+		
+		sims        obs
+		1-S*         48-S_rhoMZ
+		2-n1*        37-singletonsMZ
+		4-theta*     39-ThetaWMZ
+		5-pi*        40-ThetaPiMZ
+		6-thetaH*    41-ThetaHMZ
+		8-tajd      42-TajDMZ
+		13-rm       43-rmin
 - Guide to final_stats (for reference when changing create_posterior.sh):
 - 1 S
 - 2 n1

@@ -18,7 +18,7 @@ grep -v "NA" < temp_relevant_stats.txt > temp_relevant_stats2.txt
 awk '{for(i=1; i<=NF; i++){sum[i]+=$i}} END {for(i=1; i<=NF; i++){printf sum[i]/NR "\t"}}' temp_relevant_stats2.txt > data_file.txt
 
 # step 5: use ABCreg
-~/Documents/Science/software/reg -T -P 1 -S 7 -p prior_file.txt -d data_file.txt -b bneck -t 0.1
+~/Documents/Science/software/reg -T -P 1 -S 7 -p prior_file.txt -d data_file.txt -b bneck -t 0.01
 # have a way to choose which stats to create data file from?
-#rm temp_*
+rm temp_*
 

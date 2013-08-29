@@ -15,8 +15,8 @@
 
 
 #paramsFile <- file(paste("paramsFile.", JOB_ID,".", SGE_TASK_ID, ".", i, sep=""))
-pi_dist <- read.table("../pi_dist.txt")
-SIMULATIONS <- 100
+#pi_dist <- read.table("../pi_dist.txt")
+SIMULATIONS <- 1000000
 
 
 # Variable naming convention:
@@ -28,22 +28,22 @@ SIMULATIONS <- 100
 # type_flag_population_paramter
 
 n_sam <- 17
-n_reps <- 1
+n_reps <- 10000 #should match number of samples in theta_rho_alpha.txt
 n_sites <- 10000
-n_theta <- sample(pi_dist[[1]], SIMULATIONS) * 10000
-n_rho <- n_theta #same as theta for initial simulation
+#n_theta <- sample(pi_dist[[1]], SIMULATIONS) * 10000
+#n_rho <- n_theta #same as theta for initial simulation
 
-n_final <- 10^6
-n_initial <- 150000
-n_Tg_0_time_const <- 0.03333333
+#n_final <- 10^6
+#n_initial <- 150000
+#n_Tg_0_time_const <- 0.03333333
 n_growth_rates_alpha <- 0.0025
 n_growth_rates_time <- 0
 n_subpop_size_time <- 0.0025
 n_subpop_size_x <- 0.15
-n_Td_0_pop_ratio <- runif(SIMULATIONS, 0, 1)
-n_post_bneck <- n_Td_0_pop_ratio[1]*n_initial # default value for alpha
-n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
-curr_bneck <- n_Td_0_pop_ratio[1]
+#n_Td_0_pop_ratio <- runif(SIMULATIONS, 0, 1)
+#n_post_bneck <- n_Td_0_pop_ratio[1]*n_initial # default value for alpha
+#n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
+#curr_bneck <- n_Td_0_pop_ratio[1]
 #n_pop_0 <- 0 
 #n_pop_size <- 500
 
@@ -64,6 +64,7 @@ s_subpop_size <- "-eN"
 s_alpha <- "-G"
 s_theta <- "-t"
 s_rho <- "-r"
+s_tbs <- "tbs"
 
 
 #s_dom_event <- "-TD"
@@ -81,16 +82,7 @@ s_rho <- "-r"
 #s_noncoding <- "N"
 
 
-for (i in 1:SIMULATIONS) {
-    
-    # change alpha every 100 simulations
-    if (i %% 100 == 0) {
-        n_post_bneck <- n_Td_0_pop_ratio[i]*n_initial
-        n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
-        curr_bneck <- n_Td_0_pop_ratio[i]
-    } 
+x <- paste("ms ", n_sam, n_reps, s_theta, s_tbs, s_rho, s_tbs, n_sites, s_alpha, s_tbs, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, "<theta_rho_alpha.txt | msstats > stats.txt")
+cat(x, "\n", file="./paramsFile.txt")
+system(x)
 
-    x <- paste("ms ", n_sam, n_reps, s_theta, n_theta[i], s_rho, n_rho[i], n_sites, s_alpha, n_alpha, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, paste("| msstats > stats.", i, sep="")) #dear computer gods, I'm sorry
-    cat(paste(x, curr_bneck), "\n", file=paste("./paramsFile.", i, sep=""))
-    system(x)
-}
