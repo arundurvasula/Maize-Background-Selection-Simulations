@@ -1,7 +1,7 @@
 pi_dist <- read.table("../pi_dist.txt")
-SIMULATIONS <- 10000
+SIMULATIONS <- 1000000
 
-n_theta <- sample(pi_dist[[1]], SIMULATIONS) * 10000
+n_theta <- sample(pi_dist[[1]], SIMULATIONS, replace=TRUE) * 10000
 n_rho <- n_theta #same as theta for initial simulation
 
 n_final <- 10^6

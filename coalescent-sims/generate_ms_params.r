@@ -22,9 +22,9 @@
 # each number that isn't a population or time should have a population ID and time ID
 # Example: 
 # type_flag_population_paramter
-
+options("scipen"=100, "digits"=4)
 n_sam <- 17
-n_reps <- 10000 #should match number of samples in theta_rho_alpha.txt
+n_reps <- 1000000 #should match number of SIMULATIONS in gen_tbs.r and samples in theta_rho_alpha.txt
 n_sites <- 10000
 n_growth_rates_alpha <- 0.0025
 n_growth_rates_time <- 0
@@ -75,7 +75,7 @@ s_tbs <- "tbs"
 
 # sort the theta_rho_alpha file so we can get mean and variance for each sim
 system("sort -k 3 < theta_rho_alpha.txt > theta_rho_alpha2.txt")
-x <- paste("ms ", n_sam, n_reps, s_theta, s_tbs, s_rho, s_tbs, n_sites, s_alpha, s_tbs, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, "<theta_rho_alpha2.txt | msstats > stats.txt")
+x <- paste("~/Documents/Science/software/ms ", n_sam, n_reps, s_theta, s_tbs, s_rho, s_tbs, n_sites, s_alpha, s_tbs, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, "<theta_rho_alpha2.txt | ~/Documents/Science/software/msstats > stats.txt")
 cat(x, "\n", file="./paramsFile.txt")
 system(x)
 
