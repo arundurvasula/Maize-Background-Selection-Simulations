@@ -3,6 +3,7 @@
 # 1 sim = 100 lines of stats
 # get mean + variance for all stats of interest (SOI) for each sim > prior_file.txt
 
+## Functions
 colSd <- function(x, na.rm=TRUE) { 
 #from http://stackoverflow.com/questions/17549762/is-there-such-colsd-in-r
 # colSd not in stdlib
@@ -15,7 +16,8 @@ colSd <- function(x, na.rm=TRUE) {
   return(sqrt(colVar * n/(n-1)))
 }
 
-
+## Script
+parameters.file <- read.table("theta_rho_alpha2.txt")
 sim.file <- read.table("./stats.txt", header=TRUE)
 sim <- data.frame(sim.file$S, sim.file$n1, sim.file$theta, sim.file$pi, sim.file$thetaH, sim.file$tajd, sim.file$rm)
 END <- nrow(sim)
@@ -31,15 +33,21 @@ for (i in 1:END) {
     }
   }
 }
+
+sim.stats <- data.frame(unique(parameters.file$V3),sim.means,sim.sd)
+
+write.table(sim.stats, file="./prior_file.txt", sep = "\t", eol = "\n", row.names=FALSE, col.names=FALSE)
+
+
 #get mean + variance for all SOI in Huff_2012 > data_file.txt
 huff.data <- read.table("../Hufford_et_al._2012_10kb_statistics.txt", header=TRUE)
-huff <- data.frame(huff.data$S_rhoMZ, huff.data$singletonsMZ, huff.data$ThetaWMZ, huff.data$ThetaPiMZ, huff.data$ThetaHMZ, huff.data$TajDMZ, huff.data$rmin)
+huff <- data.frame(huff.data$S_rhoMZ, huff.data$SingletonsMZ, huff.data$ThetaWMZ, huff.data$ThetaPiMZ, huff.data$ThetaHMZ, huff.data$TajDMZ, huff.data$RminMZ)
 
 huff.means <- colMeans(huff, na.rm=TRUE)
 huff.sd <- colSd(huff, na.rm=TRUE)
 
-write.table(huff.means, file="./data_file.txt", append=TRUE, sep = "\t", eol = "\t", row.names=FALSE, col.names=FALSE)
-write.table(huff.sd, file="./data_file.txt", append=TRUE, sep = "\t", eol = "\t", row.names=FALSE, col.names=FALSE)
+huff.stats <- data.frame(huff.means,huff.sd)
+write.table(huff.stats, file="./data_file.txt", sep = "\t", eol = "\t", row.names=FALSE, col.names=FALSE)
 
-reg <- "~/Documents/Science/software/reg -T -P 1 -S 7 -p prior_file.txt -d data_file.txt -b bneck -t 0.01"
-sys(reg)
+reg <- "~/Documents/Science/software/reg -T -P 1 -S 14 -p ./prior_file.txt -d ./data_file.txt -b bneck -t 1"
+system(reg)

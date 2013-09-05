@@ -41,7 +41,7 @@ Directions to recreate simulations:
 
 1. `Rscript gen_tbs.r`
 2. `Rscript generate_ms_params.r`
-3. `source ../ms_create_posterior.sh`
+3. `source ../create_posterior_ms.sh`
 4. Graph bneck.0.post in R  
 
 - Change parameters in `generate_[simtype]_params.r`
