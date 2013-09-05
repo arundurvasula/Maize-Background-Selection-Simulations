@@ -6,18 +6,14 @@
 
 ### The below will have to be modified (ignore my comments below)
 
-# Not meant for running on farm. Using "tbs" won't allow it. 
+# Not meant for parallelizing on farm. Using "tbs" won't allow it. 
 
 #args <- commandArgs(trailingOnly=TRUE)
 #JOB_ID <- strsplit(args, " ")[[1]]
 #SGE_TASK_ID <- strsplit(args, " ")[[2]]
 #i <- strsplit(args, " ")[[3]]
-
-
 #paramsFile <- file(paste("paramsFile.", JOB_ID,".", SGE_TASK_ID, ".", i, sep=""))
 #pi_dist <- read.table("../pi_dist.txt")
-SIMULATIONS <- 1000000
-
 
 # Variable naming convention:
 # numbers start with "n_"
@@ -30,23 +26,22 @@ SIMULATIONS <- 1000000
 n_sam <- 17
 n_reps <- 10000 #should match number of samples in theta_rho_alpha.txt
 n_sites <- 10000
-#n_theta <- sample(pi_dist[[1]], SIMULATIONS) * 10000
-#n_rho <- n_theta #same as theta for initial simulation
-
-#n_final <- 10^6
-#n_initial <- 150000
-#n_Tg_0_time_const <- 0.03333333
 n_growth_rates_alpha <- 0.0025
 n_growth_rates_time <- 0
 n_subpop_size_time <- 0.0025
 n_subpop_size_x <- 0.15
+
+#n_theta <- sample(pi_dist[[1]], SIMULATIONS) * 10000
+#n_rho <- n_theta #same as theta for initial simulation
+#n_final <- 10^6
+#n_initial <- 150000
+#n_Tg_0_time_const <- 0.03333333
 #n_Td_0_pop_ratio <- runif(SIMULATIONS, 0, 1)
 #n_post_bneck <- n_Td_0_pop_ratio[1]*n_initial # default value for alpha
 #n_alpha <- log(n_final/n_post_bneck)/(n_Tg_0_time_const)
 #curr_bneck <- n_Td_0_pop_ratio[1]
 #n_pop_0 <- 0 
 #n_pop_size <- 500
-
 #n_end_time <- 0.033
 #n_num_loci <- 100
 #n_length_loci <- 10000
@@ -54,8 +49,6 @@ n_subpop_size_x <- 0.15
 #n_ITER <- 1 #1 iteration per job? if fast enough, can do more but each needs own set of params
 #n_Tg_0_time <- 0
 #n_Td_0_time <- 0
-
-
 ## sample sizes (one needed for each pop)
 #n_ss_0 <- 17 # to match 35 maize alleles in data
 
@@ -65,7 +58,6 @@ s_alpha <- "-G"
 s_theta <- "-t"
 s_rho <- "-r"
 s_tbs <- "tbs"
-
 
 #s_dom_event <- "-TD"
 #s_end_time <- "-TE"
@@ -81,8 +73,9 @@ s_tbs <- "tbs"
 #s_annotate <- "--annotate"
 #s_noncoding <- "N"
 
-
-x <- paste("ms ", n_sam, n_reps, s_theta, s_tbs, s_rho, s_tbs, n_sites, s_alpha, s_tbs, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, "<theta_rho_alpha.txt | msstats > stats.txt")
+# sort the theta_rho_alpha file so we can get mean and variance for each sim
+system("sort -k 3 < theta_rho_alpha.txt > theta_rho_alpha2.txt")
+x <- paste("ms ", n_sam, n_reps, s_theta, s_tbs, s_rho, s_tbs, n_sites, s_alpha, s_tbs, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, "<theta_rho_alpha2.txt | msstats > stats.txt")
 cat(x, "\n", file="./paramsFile.txt")
 system(x)
 
