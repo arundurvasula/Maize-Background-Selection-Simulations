@@ -27,7 +27,7 @@ pi_dist <- read.table("../pi_dist.txt")
 
 n_NPOP <- 1
 n_ITER <- 1 #1 iteration per job? if fast enough, can do more but each needs own set of params
-n_theta <- sample(pi_dist[[1]], 1) # draw from given pi dist. also, R is silly with its data frames
+n_theta <- sample(pi_dist[[1]], 1) * 10000 # draw from given pi dist. also, R is silly with its data frames
 n_rho <- n_theta #same as theta for initial simulation
 n_pop_0 <- 0 
 n_pop_size <- 500

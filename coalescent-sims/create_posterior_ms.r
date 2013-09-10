@@ -40,14 +40,14 @@ write.table(sim.stats, file="./prior_file.txt", sep = "\t", eol = "\n", row.name
 
 
 #get mean + variance for all SOI in Huff_2012 > data_file.txt
-huff.data <- read.table("../Hufford_et_al._2012_10kb_statistics.txt", header=TRUE)
-huff <- data.frame(huff.data$S_rhoMZ, huff.data$SingletonsMZ, huff.data$ThetaWMZ, huff.data$ThetaPiMZ, huff.data$ThetaHMZ, huff.data$TajDMZ, huff.data$RminMZ)
+#huff.data <- read.table("../Hufford_et_al._2012_10kb_statistics.txt", header=TRUE)
+#huff <- data.frame(huff.data$S_rhoMZ, huff.data$SingletonsMZ, huff.data$ThetaWMZ, huff.data$ThetaPiMZ, huff.data$ThetaHMZ, huff.data$TajDMZ, huff.data$RminMZ)
 
-huff.means <- colMeans(huff, na.rm=TRUE)
-huff.sd <- colSd(huff, na.rm=TRUE)
+#huff.means <- colMeans(huff, na.rm=TRUE)
+#huff.sd <- colSd(huff, na.rm=TRUE)
 
-huff.stats <- data.frame(huff.means,huff.sd)
-write.table(huff.stats, file="./data_file.txt", sep = "\t", eol = "\t", row.names=FALSE, col.names=FALSE)
+#huff.stats <- data.frame(huff.means,huff.sd)
+#write.table(huff.stats, file="./data_file.txt", sep = "\t", eol = "\t", row.names=FALSE, col.names=FALSE)
 
-reg <- "~/Documents/Science/software/reg -T -P 1 -S 14 -p ./prior_file.txt -d ./data_file.txt -b bneck -t 1"
+reg <- "~/Documents/Science/software/reg -T -P 1 -S 14 -p ./prior_file.txt -d ./data_file.txt -b bneck -t 0.1"
 system(reg)
