@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -e /dev/null
 #$ -o /dev/null
-#$ -t 3301-10000
+#$ -t 1-50000
 module load gcc
 module load libsequence
 
