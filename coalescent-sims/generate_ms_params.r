@@ -75,7 +75,7 @@ s_tbs <- "tbs"
 
 # sort the theta_rho_alpha file so we can get mean and variance for each sim
 system("sort -k 3 < theta_rho_alpha.txt > theta_rho_alpha2.txt")
-x <- paste("~/Documents/Science/software/ms ", n_sam, n_reps, s_theta, s_tbs, s_rho, s_tbs, n_sites, s_alpha, s_tbs, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, "<theta_rho_alpha2.txt | ~/Documents/Science/software/msstats > stats.txt")
+x <- paste("ms ", n_sam, n_reps, s_theta, s_tbs, s_rho, s_tbs, n_sites, s_alpha, s_tbs, s_growth_rates, n_growth_rates_alpha, n_growth_rates_time, s_subpop_size, n_subpop_size_time, n_subpop_size_x, "<theta_rho_alpha2.txt | ~/Documents/Science/software/msstats > stats.txt")
 cat(x, "\n", file="./paramsFile.txt")
 system(x)
 
