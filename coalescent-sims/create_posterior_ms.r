@@ -24,13 +24,13 @@ END <- nrow(sim)
 for (i in 1:(END-100)) {
   if(i == 1) {
     sim.means <- colMeans(sim[1:100,1:7], na.rm=TRUE)
-    #sim.sd <- sapply(1:7, function(x) sd(sim[1:100,x], na.rm=TRUE))
-    sim.sd <- colSd(sim[1:100,1:7], na.rm=TRUE)
+    sim.sd <- sapply(1:7, function(x) sd(sim[1:100,x], na.rm=TRUE))
+    #sim.sd <- colSd(sim[1:100,1:7], na.rm=TRUE)
   }
   else if (i %% 100 == 0) {
     sim.means <- rbind(sim.means, colMeans(sim[(i+1):(i+100),1:7], na.rm=TRUE))
-    #sim.sd <- rbind(sim.sd, sapply(1:7, function(x) sd(sim[i+1:i+100,x], na.rm=TRUE)))
-    sim.sd <- rbind(sim.sd, colSd(sim[(i+1):(i+100),1:7], na.rm=TRUE))
+    sim.sd <- rbind(sim.sd, sapply(1:7, function(x) sd(sim[(i+1):(i+100),x], na.rm=TRUE)))
+    #sim.sd <- rbind(sim.sd, colSd(sim[(i+1):(i+100),1:7], na.rm=TRUE))
   }
 }
 
