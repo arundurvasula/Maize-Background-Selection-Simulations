@@ -21,16 +21,16 @@ parameters.file <- read.table("theta_rho_alpha2.txt")
 sim.file <- read.table("./stats.txt", header=TRUE)
 sim <- data.frame(sim.file$S, sim.file$n1, sim.file$theta, sim.file$pi, sim.file$thetaH, sim.file$tajd, sim.file$rm)
 END <- nrow(sim)
-for (i in 1:END) {
+for (i in 1:(END-100)) {
   if(i == 1) {
     sim.means <- colMeans(sim[1:100,1:7], na.rm=TRUE)
+    #sim.sd <- sapply(1:7, function(x) sd(sim[1:100,x], na.rm=TRUE))
     sim.sd <- colSd(sim[1:100,1:7], na.rm=TRUE)
   }
   else if (i %% 100 == 0) {
-    if(!(i>9900)) {
     sim.means <- rbind(sim.means, colMeans(sim[(i+1):(i+100),1:7], na.rm=TRUE))
+    #sim.sd <- rbind(sim.sd, sapply(1:7, function(x) sd(sim[i+1:i+100,x], na.rm=TRUE)))
     sim.sd <- rbind(sim.sd, colSd(sim[(i+1):(i+100),1:7], na.rm=TRUE))
-    }
   }
 }
 
