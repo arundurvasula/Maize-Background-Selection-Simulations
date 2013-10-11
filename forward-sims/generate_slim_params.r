@@ -1,6 +1,8 @@
 #Script to create SLiM input files
 
 #TODO: Generate stepwise linear expansion
+pi_dist <- read.table("../pi_dist.txt")
+
 s_mut_type <- "#MUTATION TYPES\n"
 s_mut_1 <- "m1"
 n_m1_dom_coef <- 0.5
@@ -37,5 +39,8 @@ s_sample <- "R"
 n_out_size <- 500
 s_ms <- "MS"
 
-command <- paste()
+command <- paste("slim",s_mut_type, s_mut_1, n_m1_dom_coef, s_mut_fixed, n_m1_select_coef, s_mut_rate, n_ne, n_mut, 
+                 s_gen_el_type, s_gen_el_1, n_g1_mut_prop, s_chr_org, n_chr_start, n_chr_end, s_recomb_rate, n_recomb,
+                 s_gens, n_gens, s_dem_struct, n_time_start, s_new_pop, s_pop_1, n_p1_size, s_out, n_out_time, 
+                 s_sample, n_out_size, s_ms, sep=" ")
 system(command)
