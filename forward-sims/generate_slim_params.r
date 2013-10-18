@@ -12,7 +12,7 @@ n_m1_select_coef <- 0.0
 
 s_mut_rate <- "#MUTATION RATE\n"
 n_ne <- 2e3
-n_final <- 1e4
+n_final <- 13333
 n_mut <- sample(pi_dist[[1]], 1, replace=TRUE) / (4*n_ne)#divide pi_dist by 4*N_e. b/c per nucleotide
 
 s_gen_el_type <- "#GENOMIC ELEMENT TYPES\n"
