@@ -51,9 +51,13 @@ command <- paste(s_mut_type, s_mut_1, n_m1_dom_coef, s_mut_fixed, n_m1_select_co
                  s_gens, n_gens, newline,
                  s_dem_struct, n_time_start, s_new_pop, s_pop_1, n_p1_size, newline)
 
+
+
+#place bottleneck here after 10000 gens
+n_bneck <- floor(n_ne * runif(1, 0, 1))
 #after 10000 gens, from 10001-10171 add a number of ind every generation
 n_children <- floor((n_final - n_ne) / (n_gens - n_burn_in))
-n_new <- seq(n_ne, n_final, by=n_children)
+n_new <- seq(n_bneck, n_final, by=n_children)
 n_growth_gens <- n_burn_in:n_gens
 
 for (i in 1:length(n_growth_gens)) {

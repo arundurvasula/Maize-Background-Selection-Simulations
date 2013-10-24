@@ -35,6 +35,13 @@ Directions to recreate simulations:
 	
 - You can test out those parameters with `Rscript generate_[simtype]_params.r 1 2 3`. The output will be on the terminal with parameters saved as 'paramsFile.1.2.3'
 
+There is also a pipeline that uses slim to simulate maize domestication forward in time.
+
+To use the slim pipeline:
+
+1. `srun -n 1000000 slim_pipeline.sh` which runs slim_pipeline.sh (Rscript generate_slim_params.r jobid | msstats > stats.jobid)
+
+
 ###Coalescent Simulations:
 This pipeline uses ms to simulate maize domestication backwards in time.
 Directions to recreate simulations:
