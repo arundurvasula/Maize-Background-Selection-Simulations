@@ -8,4 +8,4 @@ set -u
 module load gcc
 module load libsequence
 
-Rscript generate_slim_params.r | msstats > stats.%j
+Rscript generate_slim_params.r | awk '/\/\// {seen = 1} seen {print}' | msstats

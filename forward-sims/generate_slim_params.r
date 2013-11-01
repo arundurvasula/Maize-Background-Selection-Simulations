@@ -68,4 +68,4 @@ for (i in 1:length(n_growth_gens)) {
 #add output line
 command <- paste(command, s_out, n_out_time, s_sample, s_pop_1, n_out_size, s_ms)
 cat(command, "\n", file="paramsFile.txt") #will need to pass task id variable
-system("slim paramsFile.txt")
+system("/home/adurvasu/slim/slim paramsFile.txt")
