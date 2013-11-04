@@ -1,6 +1,7 @@
 #Script to create SLiM input files
 
-#TODO: Generate stepwise linear expansion
+args <- commandArgs(trailingOnly=TRUE)
+JOB_ID <- strsplit(args, " ")[[1]]
 pi_dist <- read.table("../pi_dist.txt")
 
 newline <- "\n"
@@ -67,5 +68,6 @@ for (i in 1:length(n_growth_gens)) {
 
 #add output line
 command <- paste(command, s_out, n_out_time, s_sample, s_pop_1, n_out_size, s_ms)
-cat(command, "\n", file="paramsFile.txt") #will need to pass task id variable
-system("/home/adurvasu/slim/slim paramsFile.txt")
+paramsFile <- paste("paramsFile.", JOB_ID, ".txt", sep="")
+cat(command, "\n", file=paramsFile)  #will need to pass task id variable
+system(paste("/home/adurvasu/slim/slim ", paramsFile, sep=""))
