@@ -39,7 +39,7 @@ There is also a pipeline that uses slim to simulate maize domestication forward 
 
 To use the slim pipeline:
 
-1. `srun -n 1000000 slim_pipeline.sh` which runs slim_pipeline.sh (Rscript generate_slim_params.r jobid | msstats > stats.jobid)
+1. `sbatch --array=0-100 -p bigmem slim_pipeline.sh` which runs slim_pipeline.sh (Rscript generate_slim_params.r jobid | msstats > stats.jobid)
 
 
 ###Coalescent Simulations:
