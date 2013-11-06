@@ -40,8 +40,10 @@ There is also a pipeline that uses slim to simulate maize domestication forward 
 To use the slim pipeline:
 
 1. `sbatch --array=0-100 -p bigmem slim_pipeline.sh` which runs slim_pipeline.sh (Rscript generate_slim_params.r jobid | msstats > stats.jobid)
-
-
+2. Analysis:
+   Create sim stats file:
+   `find ./slim-pipeline-out-9105-9* -type f -print0 | xargs -0 cat > test.txt`
+   `awk '$1 ~ /[0-9]/ {print}' test.txt > stats.txt`
 ###Coalescent Simulations:
 This pipeline uses ms to simulate maize domestication backwards in time.
 Directions to recreate simulations:
