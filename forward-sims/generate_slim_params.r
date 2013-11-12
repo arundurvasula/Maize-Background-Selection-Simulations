@@ -55,7 +55,24 @@ command <- paste(s_mut_type, s_mut_1, n_m1_dom_coef, s_mut_fixed, n_m1_select_co
 
 
 #place bottleneck here after 10000 gens
+<<<<<<< HEAD
 n_bneck <- floor(n_ne * runif(1, 0, 1))
+=======
+runif_greater_than_0 <- function (n, min, max) {
+  results <- runif(n, min, max)
+  if (min == max ) {
+    return(min)
+  }
+  if (results > 0) {
+    return(results)
+  }
+  else if (results == 0) {
+    runif_greater_than_0(n, min, max)
+  }
+  
+}
+n_bneck <- floor(n_ne * runif_greater_than_0(1, 0, 1))
+>>>>>>> 2ee5cb0c0df9f6f61d3803b09b376144db6aebcd
 bneck_file <- paste("./slurm-log/bneck.", JOB_ID, ".txt", sep="")
 cat(n_bneck, "\n", file=bneck_file)
 #after 10000 gens, from 10001-10171 add a number of ind every generation
