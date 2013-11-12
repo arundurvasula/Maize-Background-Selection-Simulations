@@ -2,3 +2,5 @@ jri/*
 paramsFile.*
 out.*
 stats.*
+bneck.*
+slurm*
