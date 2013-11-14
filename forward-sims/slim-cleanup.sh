@@ -1,4 +1,5 @@
 #!/bin/bash
+# script to remove filed sims
 set -e
 if [ -f ./slurm-log/bneck.txt ] || [ -f ./slurm-log/stats.txt ]; then
     echo "bneck.txt or stats.txt already exist in the slurm-log directory. Please remove them."
