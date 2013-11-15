@@ -39,11 +39,40 @@ There is also a pipeline that uses slim to simulate maize domestication forward 
 
 To use the slim pipeline:
 
-1. `sbatch --array=0-100 -p bigmem slim_pipeline.sh` which runs slim_pipeline.sh (Rscript generate_slim_params.r jobid | msstats > stats.jobid)
-2. Analysis:
-   Create sim stats file:
-   `find ./slim-pipeline-out-9105-9* -type f -print0 | xargs -0 cat > test.txt`
-   `awk '$1 ~ /[0-9]/ {print}' test.txt > stats.txt`
+1. Make sure the folder `slurm-log` exists in /forward-sims/
+
+1. Run simulations: `source ./submit_multiple_slim_arrays.sh` 
+
+	This script submits the slim_pipeline.sh script multiple times, as specified in the the for loop. After the simulations finish, the files will be placed in `slurm-log`. There are 4 types of output files:
+	
+	- bneck.[JOBID].txt => holds the size of the population after the bottleneck for the simulation
+	- paramsFile.[JOBID].txt => holds the all of the parameters used for simulation
+	- slim-pipeline-out.[ARRAYID].[JOBID].txt => holds one line of summary statistics for a population
+	- slim-pipeline-stderr.[ARRAYID].[JOBID].txt => contains any error messages generated during simulation as well as anything else sent to sdterr.
+	
+2. Analysis: to run the analysis using ABCreg, you need a data file containing the mean of the summary staticstics and a prior file containing all of the simulated summary statistics. NOTE: file names and paths need to be changed.
+	3. Create data file (uses Hufford statistics grabs the mean using awk):
+					
+			awk '{print($48,"\t",$37,"\t",$39, "\t",$40,"\t",$41,"\t",$42, "\t",$43, "\t")}' ~/sfs_code_workflow2/Hufford_et_al._2012_10kb_statistics/Hufford_et_al._2012_10kb_statistics.txt | grep -v "NA" | awk '{for(i=1; i<=NF; i++){sum[i]+=$i}} END {for(i=1; i<=NF; i++){printf sum[i]/NR "\t"}}' > data_file.txt
+	
+	4. Create prior file:
+		1. Run slim-cleanup.sh to concatenate only valid stats and bottlenecks into one file.
+		2. Remove stats labels from stats.txt
+		
+			`awk '$1 ~ /[0-9]/ {print}' semifinal_stats.txt > final_stats.txt`
+		3. Grab only necessary stats:
+			
+			`awk '{print($1,"\t",$2,"\t",$4, "\t",$5,"\t",$6,"\t",$8, "\t",$13, "\t")}' final_stats.txt > temp_sim_stats.txt`
+		
+		4. Paste bottlenecks and sim stats together:
+		
+			`paste bneck temp_sim_stats | grep -v 'nan' > prior_file.txt`
+		
+	 5. Run ABCreg:
+	 	
+	 	 `~/ABCreg/reg -T -P 1 -S 7 -p prior_file.txt -d data_file.txt -b bneck -t 0.001`
+	 	 
+	 	 
 ###Coalescent Simulations:
 This pipeline uses ms to simulate maize domestication backwards in time.
 Directions to recreate simulations:
