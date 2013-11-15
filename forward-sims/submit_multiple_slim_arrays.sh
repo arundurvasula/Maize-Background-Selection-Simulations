@@ -3,5 +3,5 @@
 for i in {0..1000}
 do
 	sbatch --array=0-1000 -p serial slim_pipeline.sh
-	sleep(2)
+	sleep 2
 done
