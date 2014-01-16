@@ -1,25 +1,45 @@
-#Script to create SLiM input files
+#Script to create SLiM input files with deleterious mutations
 
 args <- commandArgs(trailingOnly=TRUE)
 JOB_ID <- strsplit(args, " ")[[1]]
 ITER <- strsplit(args, " ")[[2]]
-pi_dist <- read.table("../pi_dist.txt")
+pi_dist <- read.table("../../pi_dist.txt") #NEED TO MOVE pi_dist!
 
 newline <- "\n"
 s_mut_type <- "#MUTATION TYPES\n"
 s_mut_1 <- "m1"
-n_m1_dom_coef <- 0.5
+n_m1_dom_coef <- 0.1
+s_mut_gamma <- "g"
+n_m1_mean <- 0.2
+n_m1_shape <- -0.05 #deleterious (gamma DFE, h=0.1)
+
+s_mut_2 <- "m2"
+n_m2_dom_coef <- 0.5
 s_mut_fixed <- "f"
-n_m1_select_coef <- 0.0
+n_m2_selection <- 0.0 # fixed
+
 
 s_mut_rate <- "#MUTATION RATE\n"
 n_ne <- 2e3
 n_final <- 13333
-n_mut <- sample(pi_dist[[1]], 1, replace=TRUE) / (4*n_ne)#divide pi_dist by 4*N_e. b/c per nucleotide
+n_mut_rate <- 1e-8
 
 s_gen_el_type <- "#GENOMIC ELEMENT TYPES\n"
 s_gen_el_1 <- "g1"
-n_g1_mut_prop <- 1.0
+n_g1_mut_type <- "m1"
+n_g1_m1_mut_prop <- 0.75
+n_g1_mut_type_2 <- "m2"
+n_g1_m2_mut_prop <- 0.25 #exon (75% del, 25% neutral)
+
+s_gen_el_2 <- "g2"
+n_g2_mut_type <- "m1"
+n_g2_m1_mut_prop <- 0.75
+n_g2_mut_type_2 <- "m2"
+n_g2_m2_mut_prop <- 0.5 #UTR (50% del, 50% neutral)
+
+s_gen_el_3 <- "g3"
+n_g3_mut_type <- "m2"
+n_g3_m2_mut_prop <- 1.0 #introl (100% netural)
 
 s_chr_org <- "#CHROMOSOME ORGANIZATION\n"
 n_chr_start <- 1
@@ -56,23 +76,10 @@ command <- paste(s_mut_type, s_mut_1, n_m1_dom_coef, s_mut_fixed, n_m1_select_co
 
 
 #place bottleneck here after 10000 gens
-runif_greater_than_0 <- function (n, min, max) {
-  results <- runif(n, min, max)
-  if (min == max ) {
-    return(min)
-  }
-  if (results > 0) {
-    return(results)
-  }
-  else if (results == 0) {
-    runif_greater_than_0(n, min, max)
-  }
-  
-}
-n_bneck_size <- runif_greater_than_0(1, 0, 1)
+n_bneck_size <- 0.154532 #change this to drawing from distribution, currently set to mode of genome-wide bottleneck estimate
 n_bneck <- floor(n_ne * n_bneck_size)
-bneck_file <- paste("./slurm-log/bneck.", JOB_ID, ITER, ".txt", sep="")
-cat(n_bneck_size, "\n", file=bneck_file)
+#bneck_file <- paste("./slurm-log/bneck.", JOB_ID, ITER, ".txt", sep="")
+#cat(n_bneck_size, "\n", file=bneck_file)
 #after 10000 gens, from 10001-10171 add a number of ind every generation
 
 ## Exponential growth
