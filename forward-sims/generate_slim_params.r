@@ -2,6 +2,7 @@
 
 args <- commandArgs(trailingOnly=TRUE)
 JOB_ID <- strsplit(args, " ")[[1]]
+ITER <- strsplit(args, " ")[[2]]
 pi_dist <- read.table("../pi_dist.txt")
 
 newline <- "\n"
@@ -70,7 +71,7 @@ runif_greater_than_0 <- function (n, min, max) {
 }
 n_bneck_size <- runif_greater_than_0(1, 0, 1)
 n_bneck <- floor(n_ne * n_bneck_size)
-bneck_file <- paste("./slurm-log/bneck.", JOB_ID, ".txt", sep="")
+bneck_file <- paste("./slurm-log/bneck.", JOB_ID, ITER, ".txt", sep="")
 cat(n_bneck_size, "\n", file=bneck_file)
 #after 10000 gens, from 10001-10171 add a number of ind every generation
 
@@ -96,6 +97,6 @@ for (i in 1:length(n_growth_gens)) {
 
 #add output line
 command <- paste(command, s_out, n_out_time, s_sample, s_pop_1, n_out_size, s_ms)
-paramsFile <- paste("./slurm-log/paramsFile.", JOB_ID, ".txt", sep="")
+paramsFile <- paste("./slurm-log/paramsFile.", JOB_ID, ITER, ".txt", sep="")
 cat(command, "\n", file=paramsFile)  #will need to pass task id variable
 system(paste("/home/adurvasu/slim/slim ", paramsFile, sep=""))
