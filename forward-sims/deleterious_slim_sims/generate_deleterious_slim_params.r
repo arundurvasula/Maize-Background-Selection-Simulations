@@ -9,9 +9,9 @@ newline <- "\n"
 s_mut_type <- "#MUTATION TYPES\n"
 s_mut_1 <- "m1"
 n_m1_dom_coef <- 0.1
-s_mut_gamma <-1 * runif(1,0,1)
-n_m1_mean <- -runif(1,0,1)
-n_m1_shape <- 2 #deleterious (gamma DFE, h=0.1)
+s_mut_gamma <- "g"
+n_m1_mean <- -1 * runif(1,0,1)
+n_m1_shape <- runif(1,0,1) #deleterious (gamma DFE, h=0.1)
 
 s_mut_2 <- "m2"
 n_m2_dom_coef <- 0.5
