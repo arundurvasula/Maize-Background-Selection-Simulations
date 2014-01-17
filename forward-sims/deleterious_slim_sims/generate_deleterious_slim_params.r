@@ -18,7 +18,6 @@ n_m2_dom_coef <- 0.5
 s_mut_fixed <- "f"
 n_m2_selection <- 0.0 # fixed
 
-
 s_mut_rate <- "#MUTATION RATE\n"
 n_ne <- 2e3
 n_final <- 13333
@@ -26,20 +25,20 @@ n_mut_rate <- 1e-8
 
 s_gen_el_type <- "#GENOMIC ELEMENT TYPES\n"
 s_gen_el_1 <- "g1"
-n_g1_mut_type <- "m1"
+s_g1_mut_type <- "m1"
 n_g1_m1_mut_prop <- 0.75
-n_g1_mut_type_2 <- "m2"
+s_g1_mut_type_2 <- "m2"
 n_g1_m2_mut_prop <- 0.25 #exon (75% del, 25% neutral)
 
 s_gen_el_2 <- "g2"
-n_g2_mut_type <- "m1"
+s_g2_mut_type <- "m1"
 n_g2_m1_mut_prop <- 0.75
-n_g2_mut_type_2 <- "m2"
+s_g2_mut_type_2 <- "m2"
 n_g2_m2_mut_prop <- 0.5 #UTR (50% del, 50% neutral)
 
 s_gen_el_3 <- "g3"
-n_g3_mut_type <- "m2"
-n_g3_m2_mut_prop <- 1.0 #introl (100% netural)
+s_g3_mut_type <- "m2"
+n_g3_m2_mut_prop <- 1.0 #intron (100% netural)
 
 s_chr_org <- "#CHROMOSOME ORGANIZATION\n"
 n_chr_start <- 1
@@ -65,10 +64,13 @@ s_sample <- "R"
 n_out_size <- 500
 s_ms <- "MS"
 
-command <- paste(s_mut_type, s_mut_1, n_m1_dom_coef, s_mut_fixed, n_m1_select_coef, newline,
-                 s_mut_rate, n_mut, newline,
-                 s_gen_el_type, s_gen_el_1, s_mut_1, n_g1_mut_prop, newline,
-                 s_chr_org, s_gen_el_1, n_chr_start, n_chr_end, newline,
+command <- paste(s_mut_type, s_mut_1, n_m1_dom_coef, s_mut_gamma, n_m1_mean, n_m1_shape, newline,
+                 s_mut_2, n_m2_dom_coef, s_mut_fixed, n_m2_selection, newline,
+		 s_mut_rate, n_mut_rate, newline,
+                 s_gen_el_type, s_gen_el_1, s_g1_mut_type, n_g1_m1_mut_prop, s_g1_mut_type_2, n_g1_m2_mut_prop, newline,
+		 s_gen_el_2, s_g2_mut_type, n_g2_m1_mut_prop, s_g2_mut_type_2, n_g2_m2_mut_prop, newline,
+		 s_gen_el_3, s_g3_mut_type, n_g3_m2_mut_prop, newline,
+                 s_chr_org,s_gen_el_1, n_chr_start, n_chr_end, newline,
                  s_recomb_rate, n_chr_end, n_recomb, newline,
                  s_gens, n_gens, newline,
                  s_dem_struct, n_time_start, s_new_pop, s_pop_1, n_p1_size, newline)
@@ -104,6 +106,6 @@ for (i in 1:length(n_growth_gens)) {
 
 #add output line
 command <- paste(command, s_out, n_out_time, s_sample, s_pop_1, n_out_size, s_ms)
-paramsFile <- paste("./slurm-log/paramsFile.", JOB_ID, ITER, ".txt", sep="")
+paramsFile <- paste("./paramsFile.", JOB_ID, ITER, ".txt", sep="")
 cat(command, "\n", file=paramsFile)  #will need to pass task id variable
 system(paste("/home/adurvasu/slim/slim ", paramsFile, sep=""))
