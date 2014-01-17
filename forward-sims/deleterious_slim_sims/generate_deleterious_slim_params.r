@@ -9,9 +9,9 @@ newline <- "\n"
 s_mut_type <- "#MUTATION TYPES\n"
 s_mut_1 <- "m1"
 n_m1_dom_coef <- 0.1
-s_mut_gamma <- "g"
-n_m1_mean <- 0.2
-n_m1_shape <- -0.05 #deleterious (gamma DFE, h=0.1)
+s_mut_gamma <-1 * runif(1,0,1)
+n_m1_mean <- -runif(1,0,1)
+n_m1_shape <- 2 #deleterious (gamma DFE, h=0.1)
 
 s_mut_2 <- "m2"
 n_m2_dom_coef <- 0.5
@@ -32,7 +32,7 @@ n_g1_m2_mut_prop <- 0.25 #exon (75% del, 25% neutral)
 
 s_gen_el_2 <- "g2"
 s_g2_mut_type <- "m1"
-n_g2_m1_mut_prop <- 0.75
+n_g2_m1_mut_prop <- 0.5
 s_g2_mut_type_2 <- "m2"
 n_g2_m2_mut_prop <- 0.5 #UTR (50% del, 50% neutral)
 
