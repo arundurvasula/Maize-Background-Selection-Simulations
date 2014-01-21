@@ -78,7 +78,8 @@ command <- paste(s_mut_type, s_mut_1, n_m1_dom_coef, s_mut_gamma, n_m1_mean, n_m
 
 
 #place bottleneck here after 10000 gens
-n_bneck_size <- 0.154532 #change this to drawing from distribution, currently set to mode of genome-wide bottleneck estimate
+post <- read.table("../data/posterior-dist-pi-tajd.txt", header=FALSE)
+n_bneck_size <- sample(post$V1, 1)
 n_bneck <- floor(n_ne * n_bneck_size)
 #bneck_file <- paste("./slurm-log/bneck.", JOB_ID, ITER, ".txt", sep="")
 #cat(n_bneck_size, "\n", file=bneck_file)
@@ -106,6 +107,6 @@ for (i in 1:length(n_growth_gens)) {
 
 #add output line
 command <- paste(command, s_out, n_out_time, s_sample, s_pop_1, n_out_size, s_ms)
-paramsFile <- paste("./paramsFile.", JOB_ID, ITER, ".txt", sep="")
+paramsFile <- paste("./raw_data/paramsFile.", JOB_ID, ".", ITER, ".txt", sep="")
 cat(command, "\n", file=paramsFile)  #will need to pass task id variable
 system(paste("/home/adurvasu/slim/slim ", paramsFile, sep=""))
