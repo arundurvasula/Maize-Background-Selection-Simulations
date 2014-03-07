@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -D /home/adurvasu/Maize-Background-Selection-Simulations/forward-sims/deleterious_slim_sims/
-#SBATCH -o /dev/null
-#SBATCH -e /dev/null
+#SBATCH -o /home/adurvasu/Maize-Background-Selection-Simulations/forward-sims/deleterious_slim_sims/out.$SLURM_JOB_ID
+#SBATCH -e /home/adurvasu/Maize-Background-Selection-Simulations/forward-sims/deleterious_slim_sims/err.$SLURM_JOB_ID
 #SBATCH -J slim-pipeline
 #SBATCH --array=0-1000
 #SBATCH -p serial

@@ -1,4 +1,5 @@
 #Script to create SLiM input files with deleterious mutations
+options(scipen=999)
 
 args <- commandArgs(trailingOnly=TRUE)
 JOB_ID <- strsplit(args, " ")[[1]]
@@ -10,8 +11,10 @@ s_mut_type <- "#MUTATION TYPES\n"
 s_mut_1 <- "m1"
 n_m1_dom_coef <- 0.1
 s_mut_gamma <- "g"
-n_m1_mean <- -1 * runif(1,0,1)
-n_m1_shape <- runif(1,0,1) #deleterious (gamma DFE, h=0.1)
+n_m1_mean <- -1 * runif(1,0,5e-6)
+n_m1_shape <- runif(1,0,2) #deleterious (gamma DFE, h=0.1)
+gamma_params_file <- paste("./raw_data/gamma_params.", JOB_ID, ITER, ".txt", sep="")
+cat(n_m1_mean, "\t", n_m1_shape, "\t", file=gamma_params_file)
 
 s_mut_2 <- "m2"
 n_m2_dom_coef <- 0.5
@@ -21,7 +24,7 @@ n_m2_selection <- 0.0 # fixed
 s_mut_rate <- "#MUTATION RATE\n"
 n_ne <- 2e3
 n_final <- 13333
-n_mut_rate <- 1e-8
+n_mut_rate <- sample(pi_dist[[1]], 1, replace=TRUE) / (4*n_ne)
 
 s_gen_el_type <- "#GENOMIC ELEMENT TYPES\n"
 s_gen_el_1 <- "g1"
@@ -106,7 +109,7 @@ for (i in 1:length(n_growth_gens)) {
 }
 
 #add output line
-command <- paste(command, s_out, n_out_time, s_sample, s_pop_1, n_out_size, s_ms)
+command <- paste(command, s_out, n_out_time, s_sample, s_pop_1, n_out_size, s_ms, newline)
 paramsFile <- paste("./raw_data/paramsFile.", JOB_ID, ".", ITER, ".txt", sep="")
 cat(command, "\n", file=paramsFile)  #will need to pass task id variable
 system(paste("/home/adurvasu/slim/slim ", paramsFile, sep=""))
