@@ -11,8 +11,9 @@ s_mut_type <- "#MUTATION TYPES\n"
 s_mut_1 <- "m1"
 n_m1_dom_coef <- 0.1
 s_mut_gamma <- "g"
-n_m1_mean <- -1 * runif(1,0,5e-6)
-n_m1_shape <- runif(1,0,2) #deleterious (gamma DFE, h=0.1)
+a = runif(1, 0, -log(1e-7))
+n_m1_mean <- -1 * exp(-a)
+n_m1_shape <- 1
 gamma_params_file <- paste("./raw_data/gamma_params.", JOB_ID, ITER, ".txt", sep="")
 cat(n_m1_mean, "\t", n_m1_shape, "\t", file=gamma_params_file)
 
