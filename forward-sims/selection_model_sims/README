@@ -1,0 +1,1 @@
+This directory contains files to run simulations that sample the posterior for the selection parameter. The purpose is to check if we get stats that look like our data our the other end.
