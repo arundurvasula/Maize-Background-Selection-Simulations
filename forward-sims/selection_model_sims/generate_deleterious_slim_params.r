@@ -12,7 +12,7 @@ s_mut_type <- "#MUTATION TYPES\n"
 s_mut_1 <- "m1"
 n_m1_dom_coef <- 0.1
 s_mut_gamma <- "g"
-a <- sample(selection_dist, 1)
+a <- sample(selection_dist[[1]], 1)
 n_m1_mean <- -1 * exp(-a)
 n_m1_shape <- 1
 gamma_params_file <- paste("./raw_data/gamma_params.", JOB_ID, ITER, ".txt", sep="")
