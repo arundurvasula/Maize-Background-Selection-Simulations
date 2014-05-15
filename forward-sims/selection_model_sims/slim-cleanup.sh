@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -D /home/adurvasu/Maize-Background-Selection-Simulations/forward-sims/deleterious_slim_sims
+#SBATCH -D /home/adurvasu/Maize-Background-Selection-Simulations/forward-sims/selection_model_sims
 #SBATCH -o /dev/null
 #SBATCH -e /dev/null
 # script to remove filed sims
