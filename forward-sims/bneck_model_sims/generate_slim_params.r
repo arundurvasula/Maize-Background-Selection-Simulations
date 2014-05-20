@@ -3,7 +3,7 @@
 args <- commandArgs(trailingOnly=TRUE)
 JOB_ID <- strsplit(args, " ")[[1]]
 ITER <- strsplit(args, " ")[[2]]
-pi_dist <- read.table("../pi_dist.txt")
+pi_dist <- read.table("../../pi_dist.txt")
 
 newline <- "\n"
 s_mut_type <- "#MUTATION TYPES\n"
